@@ -1,11 +1,9 @@
 import React from "react";
-// import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
 
 const Layout = ({ children }) => {
   const userToken = localStorage.getItem("user_token");
-  const userGlobal = useSelector((state) => state.user.user);
+
   return (
     <>
       {userToken ? (

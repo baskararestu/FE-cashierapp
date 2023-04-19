@@ -1,8 +1,7 @@
-import { Routes, Route, useHistory, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
-import Sidebar from "./components/Sidebar";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";

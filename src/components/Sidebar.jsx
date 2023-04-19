@@ -3,15 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../features/users/userSlice";
-import { useNavigate } from "react-router-dom";
 
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import PersonIcon from "@mui/icons-material/Person";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -68,7 +64,7 @@ const Sidebar = () => {
         <ArrowCircleRightOutlinedIcon
           className={`${
             !open && "rotate-180"
-          } absolute text-3xl  fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
+          } absolute text-3xl  fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-slate-50`}
           onClick={() => setOpen(!open)}
         />
         <Link to="/dashboard">
