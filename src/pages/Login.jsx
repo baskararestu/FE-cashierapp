@@ -4,20 +4,24 @@ import * as Yup from "yup";
 import { loginUser } from "../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AuthNav from "../components/AuthNav";
+import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 
 function Login() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userGlobal = useSelector((state) => state.user.user);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email cannot be empty")
       .email("Wrong email format"),
     password: Yup.string()
       .required("Password cannot be empty")
-      .min(4, "Password to short"),
+      .min(6, "Password too short"),
   });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userGlobal = useSelector((state) => state.user.user);
 
   const handleLoginUser = async (value) => {
     dispatch(loginUser(value));
@@ -26,7 +30,7 @@ function Login() {
 
   useEffect(() => {
     if (userGlobal.id > 0) {
-      navigate("/landing");
+      navigate("/dashboard");
     }
   }, [userGlobal]);
 
@@ -41,7 +45,8 @@ function Login() {
       >
         {(props) => {
           return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+            <div className="fix top-40 min-h-screen flex flex-col items-center justify-center bg-gray-100">
+              <AuthNav />
               <div
                 className="
           flex flex-col
@@ -55,6 +60,7 @@ function Login() {
           rounded-3xl
           w-50
           max-w-md
+          mt-5
         "
               >
                 <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
@@ -76,32 +82,19 @@ function Login() {
                       <div className="relative">
                         <div
                           className="
-                    inline-flex
+                    inline-block
                     items-center
                     justify-center
                     absolute
                     position
-                    left-0
-                    top-0
+                    left-2
+                    top-1
                     h-full
                     w-10
-                    text-gray-400
+                    text-blue-500
                   "
                         >
-                          <svg
-                            fill="none"
-                            strokeWidth="1.5"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true"
-                            className="w-6 stroke-blue-500 absolute top-1.5 left-1.5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"
-                            ></path>
-                          </svg>
+                          <AlternateEmailOutlinedIcon />
                         </div>
                         <Field
                           id="email"
@@ -138,35 +131,20 @@ function Login() {
                       <div className="relative">
                         <div
                           className="
-                    inline-flex
+                    inline-block
                     items-center
                     justify-center
                     absolute
-                    left-0
-                    top-0
+                    position
+                    left-2
+                    top-1
                     h-full
                     w-10
-                    text-gray-400
+                    text-blue-500
                   "
                         >
-                          <span>
-                            <svg
-                              fill="none"
-                              strokeWidth="1.5"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                              aria-hidden="true"
-                              className="w-6 stroke-blue-500 absolute top-1.5 left-1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                              ></path>
-                            </svg>
-                          </span>
+                          <LockOutlinedIcon />
                         </div>
-
                         <Field
                           id="password"
                           type="password"
@@ -223,19 +201,7 @@ function Login() {
                 "
                       >
                         <span className="mr-2 uppercase">Sign In</span>
-                        <span>
-                          <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </span>
+                        <InputOutlinedIcon />
                       </button>
                     </div>
                   </Form>
