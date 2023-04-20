@@ -67,7 +67,7 @@ const Sidebar = () => {
           } absolute text-3xl  fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-slate-50`}
           onClick={() => setOpen(!open)}
         />
-        <Link to="/dashboard">
+        <Link to="/">
           <div className={`flex ${open && "gap-x-4"} items-center`}>
             {/* <img src={Logo} alt="" className="pl-2" /> */}
             {open && (
