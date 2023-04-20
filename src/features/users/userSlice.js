@@ -16,11 +16,20 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    resetUser: (state) => {
+      state.user = {
+        id: "",
+        username: "",
+        email: "",
+        phone: "",
+        store_name: "",
+      };
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 
 export function loginUser(data) {
   return async (dispatch) => {
@@ -43,5 +52,12 @@ export function loginUser(data) {
       console.error(error);
       alert("An error occurred. Please try again later.");
     }
+  };
+}
+export function logoutUser() {
+  return async (dispatch) => {
+    dispatch(resetUser());
+    localStorage.removeItem("user_token");
+    alert("im logout");
   };
 }
