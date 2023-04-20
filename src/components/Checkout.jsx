@@ -1,7 +1,11 @@
 import React from "react";
 
 function Checkout() {
-  return <div className="bg-red-500">Checkout</div>;
+  return (
+    <div class="h-screen flex flex-col overflow-hidden">
+      <div>test</div>
+    </div>
+  );
 }
 
 export default Checkout;
