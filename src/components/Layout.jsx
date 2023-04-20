@@ -5,12 +5,12 @@ const Layout = ({ children }) => {
   const userToken = localStorage.getItem("user_token");
 
   return (
-    <>
+    <div className="h-screen flex flex-col overflow-hidden">
       {userToken ? (
-        <div className="flex flex-auto h-screen">
+        <div className="flex flex-auto">
           <Sidebar />
           <div className="grow">
-            <div className="m-5">{children}</div>
+            <div className="min-w-screen min-h-screen">{children}</div>
           </div>
         </div>
       ) : (
@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
