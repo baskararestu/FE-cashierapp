@@ -45,7 +45,7 @@ function Login() {
       >
         {(props) => {
           return (
-            <div className="fix top-40 min-h-screen flex flex-col items-center justify-center bg-gray-100">
+            <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
               <AuthNav />
               <div
                 className="

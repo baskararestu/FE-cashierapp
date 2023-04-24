@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   const userToken = localStorage.getItem("user_token");
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-auto">
       {userToken ? (
         <div className="flex flex-auto">
           <Sidebar />

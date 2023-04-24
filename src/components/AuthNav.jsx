@@ -5,9 +5,10 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 function AuthNav() {
   const navigate = useNavigate();
+
   return (
-    <div className=" fixed top-5 w-full px-20 text-gray-800 h-20">
-      <div className=" mx-40  bg-gray-200 flex flex-row justify-center items-center h-12 rounded-xl gap-16 text-gray-600">
+    <div className=" mt-10 w-full px-20 text-gray-800 h-1/6 absolute top-0 ">
+      <div className=" mx-40 bg-gray-200 flex flex-row justify-center items-center h-12 rounded-xl gap-16 text-gray-600">
         <div>
           <KeyRoundedIcon />
           <button
