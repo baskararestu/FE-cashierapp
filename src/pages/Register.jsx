@@ -6,6 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
+import PhoneIcon from "@mui/icons-material/Phone";
+import StoreIcon from "@mui/icons-material/Store";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
 function Register() {
   const RegisterSchema = Yup.object().shape({
     username: Yup.string()
@@ -58,9 +64,9 @@ function Register() {
       >
         {(props) => {
           return (
-            <div className=" min-h-screen flex flex-col items-center justify-center bg-gray-100">
+            <div className=" flex flex-col items-center justify-center bg-gray-100 min-h-screen">
               <AuthNav />
-              {/* <div
+              <div
                 className="
           flex flex-col
           bg-white
@@ -71,9 +77,10 @@ function Register() {
           lg:px-10
           py-8
           rounded-3xl
-          w-50
-          max-w-md
-          mt-5
+          w-3/4
+          max-w-lg
+          mt-28
+
         "
               >
                 <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
@@ -84,12 +91,28 @@ function Register() {
                 </div>
 
                 <div className="mt-10 ">
-                  <Form action="#" method="POST">
+                  <Form action="#" method="POST" className="">
                     <div className="flex flex-col mb-5">
                       <label className="mb-1 text-xs tracking-wide text-gray-600">
                         Username :
                       </label>
                       <div className="relative">
+                        <div
+                          className="
+                    inline-block
+                    items-center
+                    justify-center
+                    absolute
+                    position
+                    left-2
+                    top-1
+                    h-full
+                    w-10
+                    text-blue-500
+                  "
+                        >
+                          <AccountCircleIcon />
+                        </div>
                         <Field
                           name="username"
                           autoComplete="username"
@@ -121,6 +144,22 @@ function Register() {
                         E-Mail Address:
                       </label>
                       <div className="relative">
+                        <div
+                          className="
+                    inline-block
+                    items-center
+                    justify-center
+                    absolute
+                    position
+                    left-2
+                    top-1
+                    h-full
+                    w-10
+                    text-blue-500
+                  "
+                        >
+                          <AlternateEmailOutlinedIcon />
+                        </div>
                         <Field
                           id="email"
                           type="email"
@@ -151,6 +190,22 @@ function Register() {
                         Phone :
                       </label>
                       <div className="relative">
+                        <div
+                          className="
+                    inline-block
+                    items-center
+                    justify-center
+                    absolute
+                    position
+                    left-2
+                    top-1
+                    h-full
+                    w-10
+                    text-blue-500
+                  "
+                        >
+                          <PhoneIcon />
+                        </div>
                         <Field
                           name="phone"
                           autoComplete="phone"
@@ -179,6 +234,22 @@ function Register() {
                         Store Name :
                       </label>
                       <div className="relative">
+                        <div
+                          className="
+                    inline-block
+                    items-center
+                    justify-center
+                    absolute
+                    position
+                    left-2
+                    top-1
+                    h-full
+                    w-10
+                    text-blue-500
+                  "
+                        >
+                          <StoreIcon />
+                        </div>
                         <Field
                           name="store_name"
                           autoComplete="store_name"
@@ -212,33 +283,19 @@ function Register() {
                       <div className="relative">
                         <div
                           className="
-                    inline-flex
+                    inline-block
                     items-center
                     justify-center
                     absolute
-                    left-0
-                    top-0
+                    position
+                    left-2
+                    top-1
                     h-full
                     w-10
-                    text-gray-400
+                    text-blue-500
                   "
                         >
-                          <span>
-                            <svg
-                              fill="none"
-                              strokeWidth="1.5"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                              aria-hidden="true"
-                              className="w-6 stroke-blue-500 absolute top-1.5 left-1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                              ></path>
-                            </svg>
-                          </span>
+                          <LockOutlinedIcon />
                         </div>
 
                         <Field
@@ -265,14 +322,6 @@ function Register() {
                           style={{ color: "red", fontSize: "12px" }}
                         />
                       </div>
-                      <div className="mt-5 flex flex-row justify-end">
-                        <a
-                          href="/user/forget-password"
-                          className="text-xs ml-2 text-blue-500 font-semibold hover:underline "
-                        >
-                          Forget Password?
-                        </a>
-                      </div>
                     </div>
 
                     <div className="flex w-full">
@@ -296,26 +345,13 @@ function Register() {
                   ease-in
                 "
                       >
-                        <span className="mr-2 uppercase">Sign In</span>
-                        <span>
-                          <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </span>
+                        <span className="mr-2 uppercase">Sign Up</span>
                       </button>
                     </div>
                   </Form>
                 </div>
               </div>
-              <div className="flex justify-center items-center mt-6">
+              <div className="flex justify-center items-center my-6">
                 <a
                   href="#"
                   target="_blank"
@@ -328,17 +364,16 @@ function Register() {
           "
                 >
                   <span className="ml-2">
-                    You don't have an account?
+                    Already have an account?
                     <a
                       href="/register"
                       className="text-xs ml-2 text-blue-500 font-semibold hover:underline"
                     >
-                      Register now
+                      Sign In
                     </a>
                   </span>
                 </a>
-              </div> */}
-              Register
+              </div>
             </div>
           );
         }}
