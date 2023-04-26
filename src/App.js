@@ -6,6 +6,8 @@ import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";
 import AddProduct from "./pages/AddProduct";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const userToken = localStorage.getItem("user_token");
@@ -36,6 +38,7 @@ function App() {
   return (
     <div>
       <Layout>
+        <ToastContainer />
         <Routes>
           {/* Render the login and register pages only if the user is not logged in */}
           {!userToken && (
