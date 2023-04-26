@@ -58,9 +58,9 @@ function Login() {
           lg:px-10
           py-8
           rounded-3xl
-          w-50
+          w-1/4
           max-w-md
-          mt-5
+          
         "
               >
                 <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">

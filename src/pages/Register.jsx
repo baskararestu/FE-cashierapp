@@ -64,7 +64,7 @@ function Register() {
       >
         {(props) => {
           return (
-            <div className=" flex flex-col items-center justify-center bg-gray-100 min-h-screen">
+            <div className=" flex flex-col items-center justify-center bg-gray-100 h-screen">
               <AuthNav />
               <div
                 className="
@@ -77,9 +77,9 @@ function Register() {
           lg:px-10
           py-8
           rounded-3xl
-          w-3/4
+          w-1/4
           max-w-lg
-          mt-28
+          mt-16
 
         "
               >
@@ -366,7 +366,7 @@ function Register() {
                   <span className="ml-2">
                     Already have an account?
                     <a
-                      href="/register"
+                      href="/login"
                       className="text-xs ml-2 text-blue-500 font-semibold hover:underline"
                     >
                       Sign In
