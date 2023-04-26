@@ -11,6 +11,7 @@ import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlin
 import PhoneIcon from "@mui/icons-material/Phone";
 import StoreIcon from "@mui/icons-material/Store";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import {toast} from "react-toastify";
 
 function Register() {
   const RegisterSchema = Yup.object().shape({
@@ -58,8 +59,10 @@ function Register() {
           password: "",
         }}
         validationSchema={RegisterSchema}
-        onSubmit={(value) => {
-          registerUser(value);
+        onSubmit={async (value) => {
+            await registerUser(value);
+            toast("Register success")
+            navigate("/login");
         }}
       >
         {(props) => {
