@@ -8,6 +8,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import PersonIcon from "@mui/icons-material/Person";
 import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
+import { ArticleRounded } from '@mui/icons-material'
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -29,6 +30,20 @@ const Sidebar = () => {
       path: "/add-product",
       src: (
         <AddBoxRoundedIcon className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+      ),
+    },
+    {
+      title: "Category",
+      path: "/category",
+      src: (
+        <ArticleRounded className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+      ),
+    },
+    {
+      title: "Report",
+      path: "/report",
+      src: (
+        <PieChartIcon className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
       ),
     },
     {
