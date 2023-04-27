@@ -5,9 +5,10 @@ import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";
-import AddProduct from "./pages/AddProduct";
-import {ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import AddProductForm from "./pages/AddProduct";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import MyProduct from "./pages/Myproduct";
 
 function App() {
   const userToken = localStorage.getItem("user_token");
@@ -49,7 +50,8 @@ function App() {
           )}
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/my-product" element={<MyProduct />} />
+          <Route path="/add-product" element={<AddProductForm />} />
         </Routes>
       </Layout>
     </div>
