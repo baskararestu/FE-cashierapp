@@ -1,35 +1,67 @@
-import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ProductItem = ({ product, showAddItemButton = true }) => {
-  const productGlobal = useSelector((state) => state.product.products);
+  const navigate = useNavigate();
   return (
-    <div className="p-2 bg-gray-50 shadow flex flex-col gap-2">
+    <div className="p-2 bg-gray-50 shadow flex flex-col gap-2 h-full">
       {/*if image error show 404 from public src*/}
-      <img
-        className="h-[120px] w-full object-cover"
-        src={product?.image}
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "https://via.placeholder.com/150";
-        }}
-        alt={product?.name}
-      />
-      <h3 className="font-bold uppercase">{product?.name}</h3>
-      <p className="text-sm">
-        {
-          // number format
-          new Intl.NumberFormat("en-ID", {
-            style: "currency",
-            currency: "IDR",
-          }).format(product?.price)
-        }
-      </p>
-      <p>{product?.description}</p>
-      {showAddItemButton && (
-        <button className="py-1.5 px-3 bg-orange-400 w-fit rounded-sm m-auto font-semibold uppercase">
-          Add Item
-        </button>
-      )}
+      <div>
+        <img
+          className="h-[120px] w-full object-cover"
+          src={product?.image}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "https://via.placeholder.com/150";
+          }}
+          alt={product?.name}
+        />
+      </div>
+      <div>
+        <h3 className="font-bold uppercase">{product?.name}</h3>
+      </div>
+      <div>
+        <p className="text-sm">
+          {
+            // number format
+            new Intl.NumberFormat("en-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(product?.price)
+          }
+        </p>
+      </div>
+      <div className="flex-grow">
+        <p>{product?.description}</p>
+      </div>
+      <div className="self-end">
+        {showAddItemButton ? (
+          <button className="py-1.5 px-3 bg-orange-400 rounded-sm font-semibold uppercase">
+            Add Item
+          </button>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="contained"
+              className="py-1.5 px-3 rounded-sm"
+              onClick={() => {
+                navigate("/edit-product");
+              }}
+            >
+              <EditIcon />
+            </Button>
+            <Button
+              variant="contained"
+              className="py-1.5 px-3  rounded-sm"
+              color="error"
+            >
+              <DeleteIcon />
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
