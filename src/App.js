@@ -9,6 +9,7 @@ import AddProductForm from "./pages/AddProduct";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MyProduct from "./pages/Myproduct";
+import EditProduct from "./pages/EditProduct";
 
 function App() {
   const userToken = localStorage.getItem("user_token");
@@ -52,6 +53,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/my-product" element={<MyProduct />} />
           <Route path="/add-product" element={<AddProductForm />} />
+          <Route path="/edit-product/:id" element={<EditProduct />} />
         </Routes>
       </Layout>
     </div>

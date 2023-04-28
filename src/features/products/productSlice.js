@@ -10,6 +10,7 @@ export const productSlice = createSlice({
       total: 0,
     },
     categories: [],
+    selectedProduct: null,
   },
   reducers: {
     setProducts: (state, action) => {
@@ -24,11 +25,19 @@ export const productSlice = createSlice({
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
+    setProduct: (state, action) => {
+      state.selectedProduct = action.payload;
+    },
   },
 });
 
-export const { setProducts, setPagination, addProduct, setCategories } =
-  productSlice.actions;
+export const {
+  setProducts,
+  setPagination,
+  addProduct,
+  setCategories,
+  setProduct,
+} = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -74,6 +83,26 @@ export function addProductAsync(product) {
   };
 }
 
+export function editProductAsync(id) {
+  return async (dispatch) => {
+    // Use the productId argument to construct the API URL
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/product/edit/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      );
+      dispatch(addProduct(response.data));
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+}
+
 export function getCategories() {
   return async (dispatch) => {
     // Fetch categories
@@ -86,5 +115,20 @@ export function getCategories() {
       }
     );
     dispatch(setCategories(categoryResponse.data.data));
+  };
+}
+export function fetchProductById(id) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+        },
+      });
+      dispatch(setProduct(response.data)); // dispatch setProduct action with fetched product
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+    }
   };
 }

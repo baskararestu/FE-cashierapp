@@ -47,7 +47,7 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
               variant="contained"
               className="py-1.5 px-3 rounded-sm"
               onClick={() => {
-                navigate("/edit-product");
+                navigate(`/edit-product/${product.id_product}`); // pass the product id to the URL
               }}
             >
               <EditIcon />

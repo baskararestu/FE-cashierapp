@@ -7,17 +7,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent } from "@mui/material";
 
 function AddProductForm() {
   const [product, setProduct] = useState({});
+ 
   const categories = useSelector((state) => state.product.categories);
   const dispatch = useDispatch();
 
@@ -53,17 +47,10 @@ function AddProductForm() {
     formData.append("category", parseInt(product.category));
     formData.append("stock", parseInt(product.stock));
     formData.append("image", product.image);
-    // console.log(product);
+    console.log(product);
     try {
       await dispatch(addProductAsync(formData));
-      // setProduct({
-      //   name: "",
-      //   price: "",
-      //   description: "",
-      //   category: "",
-      //   stock: "",
-      //   image: "",
-      // });
+      setIsProductAdded(true); // Set flag to true when product is successfully added
     } catch (error) {
       console.error(error);
       alert(
@@ -112,8 +99,10 @@ function AddProductForm() {
             <form
               onSubmit={async (values) => {
                 await handleFormSubmit(values);
-                toast("Add product success");
-                navigate("/my-product");
+                if (isProductAdded === true) {
+                  toast("Add product success");
+                  navigate("/my-product");
+                }
               }}
               className="flex flex-col gap-5"
             >
