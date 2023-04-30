@@ -2,9 +2,21 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteProduct } from "../features/products/productSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProductItem = ({ product, showAddItemButton = true }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleDeleteClick = async () => {
+    dispatch(deleteProduct(product.id_product));
+    console.log(product.id_product);
+    if (product.id_product) {
+      toast("Deleted product succed");
+    }
+  };
   return (
     <div className="p-2 bg-gray-50 shadow flex flex-col gap-2 h-full">
       {/*if image error show 404 from public src*/}
@@ -56,6 +68,9 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
               variant="contained"
               className="py-1.5 px-3  rounded-sm"
               color="error"
+              onClick={() => {
+                handleDeleteClick();
+              }}
             >
               <DeleteIcon />
             </Button>

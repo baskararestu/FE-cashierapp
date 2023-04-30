@@ -62,7 +62,8 @@ function AddProductForm() {
       console.log(response.message);
       console.log(response.isSuccess);
       if (response.isSuccess) {
-        setIsProductAdded(true); // Set flag to true when product is successfully added
+        toast("Add product success");
+        navigate("/my-product");
       }
     } catch (error) {
       console.error(error);
@@ -91,15 +92,6 @@ function AddProductForm() {
     }
   };
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-      •
-    </Box>
-  );
-
   return (
     <div className="container w-full m-10 flex flex-col items-center  ">
       <div className=" font-bold  mb-3 ">
@@ -112,10 +104,6 @@ function AddProductForm() {
             <form
               onSubmit={async (values) => {
                 await handleFormSubmit(values);
-                if (isProductAdded === true) {
-                  toast("Add product success");
-                  navigate("/my-product");
-                }
               }}
               className="flex flex-col gap-5"
             >

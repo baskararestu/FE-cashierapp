@@ -153,3 +153,27 @@ export function editProductById(id) {
     }
   };
 }
+export function deleteProduct(productId) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/product/delete/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      );
+      // setTimeout(() => {
+      const updatedProducts = getState().product.products.filter(
+        (product) => productId !== product.id_product
+      );
+      dispatch(setProducts(updatedProducts));
+      // }, 1000);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      // alert("An error occurred. Please try again later.(deleted)");
+    }
+  };
+}
