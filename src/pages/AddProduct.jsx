@@ -10,8 +10,9 @@ import { toast } from "react-toastify";
 import { Box, Button, Card, CardActions, CardContent } from "@mui/material";
 
 function AddProductForm() {
-  const [product, setProduct] = useState({});
- 
+  const [product, setProduct] = useState({ price: 0, stock: 0 });
+  const [isProductAdded, setIsProductAdded] = useState(false); // Flag to indicate if product has been successfully added
+
   const categories = useSelector((state) => state.product.categories);
   const dispatch = useDispatch();
 
@@ -35,7 +36,15 @@ function AddProductForm() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setProduct({ ...product, [name]: value });
+    if (name == "price" || name == "stock") {
+      // alert("Im price");
+      if (value >= 0) {
+        setProduct({ ...product, [name]: parseInt(value) });
+      }
+    } else {
+      setProduct({ ...product, [name]: value });
+    }
+    console.log(product);
   };
 
   const handleFormSubmit = async (event) => {
@@ -49,8 +58,12 @@ function AddProductForm() {
     formData.append("image", product.image);
     console.log(product);
     try {
-      await dispatch(addProductAsync(formData));
-      setIsProductAdded(true); // Set flag to true when product is successfully added
+      let response = await dispatch(addProductAsync(formData));
+      console.log(response.message);
+      console.log(response.isSuccess);
+      if (response.isSuccess) {
+        setIsProductAdded(true); // Set flag to true when product is successfully added
+      }
     } catch (error) {
       console.error(error);
       alert(
@@ -68,7 +81,7 @@ function AddProductForm() {
     if (name === "category") {
       try {
         const data = await dispatch(getCategories());
-        // console.log("categories data:", data);
+        console.log("categories data:", data);
       } catch (error) {
         console.error(error);
         alert(

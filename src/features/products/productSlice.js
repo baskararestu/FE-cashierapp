@@ -76,6 +76,8 @@ export function addProductAsync(product) {
         }
       );
       dispatch(addProduct(response.data));
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again later.");
@@ -126,6 +128,25 @@ export function fetchProductById(id) {
         },
       });
       dispatch(setProduct(response.data)); // dispatch setProduct action with fetched product
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+}
+
+export function editProductById(id) {
+  return async (dispatch) => {
+    try {
+      let response = await axios.put(
+        `http://localhost:3000/product/edit/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      );
+      dispatch(setProducts(response.data)); // dispatch setProduct action with fetched product
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again later.");
