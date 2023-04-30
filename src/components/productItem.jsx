@@ -11,7 +11,7 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
       <div>
         <img
           className="h-[120px] w-full object-cover"
-          src={product?.image}
+          src={`http://localhost:3000/${product?.image}`}
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/150";
