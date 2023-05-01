@@ -135,11 +135,12 @@ export function fetchProductById(id) {
   };
 }
 
-export function editProductById(id) {
+export function editProductById(id, productData) {
   return async (dispatch) => {
     try {
       let response = await axios.put(
         `http://localhost:3000/product/edit/${id}`,
+        productData,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("user_token")}`,
@@ -177,3 +178,10 @@ export function deleteProduct(productId) {
     }
   };
 }
+
+// export const setSelectedProduct = (product) => {
+//   return {
+//     type: "product/setSelectedProduct",
+//     payload: product,
+//   };
+// };

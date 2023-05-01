@@ -2,7 +2,10 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteProduct } from "../features/products/productSlice";
+import {
+  deleteProduct,
+  fetchProducts,
+} from "../features/products/productSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -14,7 +17,8 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
     dispatch(deleteProduct(product.id_product));
     console.log(product.id_product);
     if (product.id_product) {
-      toast("Deleted product succed");
+      toast.error(`Deleted product ${product.name}`);
+      await dispatch(fetchProducts());
     }
   };
   return (
