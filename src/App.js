@@ -5,9 +5,12 @@ import Register from './pages/Register'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import { useEffect } from 'react'
-import AddProduct from './pages/AddProduct'
+import AddProductForm from './pages/AddProduct'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import MyProduct from './pages/Myproduct'
+import EditProduct from './pages/EditProduct'
+
 import Report from './pages/Report'
 import Category from './pages/Category'
 
@@ -45,15 +48,18 @@ function App() {
           {/* Render the login and register pages only if the user is not logged in */}
           {!userToken && (
             <>
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </>
           )}
-          <Route path='/' element={<Landing />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/category' element={<Category />} />
-          <Route path='/add-product' element={<AddProduct />} />
-          <Route path='/report' element={<Report />} />
+
+          <Route path="/" element={<Landing />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/my-product" element={<MyProduct />} />
+          <Route path="/add-product" element={<AddProductForm />} />
+          <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/report" element={<Report />} />
         </Routes>
       </Layout>
     </div>

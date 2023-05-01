@@ -11,7 +11,7 @@ import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlin
 import PhoneIcon from "@mui/icons-material/Phone";
 import StoreIcon from "@mui/icons-material/Store";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function Register() {
   const RegisterSchema = Yup.object().shape({
@@ -22,7 +22,7 @@ function Register() {
     email: Yup.string()
       .required("Email cannot be empty")
       .email("Wrong email format"),
-    phone: Yup.string()
+    phone: Yup.number()
       .matches(/^[0-9]*$/, "Phone must be a number")
       .matches(/^0/, "Phone must start with 0")
       .required("Phone is required")
@@ -60,14 +60,14 @@ function Register() {
         }}
         validationSchema={RegisterSchema}
         onSubmit={async (value) => {
-            await registerUser(value);
-            toast("Register success")
-            navigate("/login");
+          await registerUser(value);
+          toast("Register success");
+          navigate("/login");
         }}
       >
         {(props) => {
           return (
-            <div className=" flex flex-col items-center justify-center bg-gray-100 min-h-screen">
+            <div className=" flex flex-col items-center justify-center bg-gray-100 h-screen">
               <AuthNav />
               <div
                 className="
@@ -80,9 +80,9 @@ function Register() {
           lg:px-10
           py-8
           rounded-3xl
-          w-3/4
+          w-1/4
           max-w-lg
-          mt-28
+          mt-16
 
         "
               >
@@ -369,7 +369,7 @@ function Register() {
                   <span className="ml-2">
                     Already have an account?
                     <a
-                      href="/register"
+                      href="/login"
                       className="text-xs ml-2 text-blue-500 font-semibold hover:underline"
                     >
                       Sign In
