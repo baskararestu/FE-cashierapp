@@ -22,15 +22,17 @@ function MyProduct() {
       </div>
 
       <div className="grid grid-cols-4 gap-5 py-3">
-        {products?.map((product) => {
-          return (
-            <ProductItem
-              key={product.id}
-              product={product}
-              showAddItemButton={false}
-            />
-          );
-        })}
+        {
+          products.length > 0 ?  products?.map((product) => {
+            return (
+              <ProductItem
+                key={product.id}
+                product={product}
+                showAddItemButton={false}
+              />
+            );
+          }) : <div className="text-center col-span-4">No product found</div>
+        }
       </div>
       {/*  pagination  */}
       {page?.total > 1 && (
