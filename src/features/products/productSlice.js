@@ -148,6 +148,7 @@ export function editProductById(id, productData) {
         }
       );
       dispatch(setProducts(response.data)); // dispatch setProduct action with fetched product
+      dispatch(fetchProducts()); // refresh our products list
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again later.");
