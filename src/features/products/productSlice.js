@@ -37,10 +37,15 @@ export const productSlice = createSlice({
       // console.log(state.cartItems)
       const newItem = action.payload
       const existingItemIndex = state.cartItems.findIndex(
-        (item) => item.product.id_product === newItem.product.id_product
+        (item) => item.id_product === newItem.id_product
       )
       if (existingItemIndex !== -1) {
-        // If the product already exists in the cart, update its quantity
+        if(newItem.quantity < 0 &&  state.cartItems[existingItemIndex].quantity === 1){
+          // remove item from cart
+          state.cartItems = state.cartItems.filter((item) => item.id_product !== newItem.id_product)
+          return;
+        }
+        // If the product already exists in the cart, update its quantity 1 | -1
         state.cartItems[existingItemIndex].quantity += newItem.quantity
       } else {
         // If the product doesn't exist in the cart, add it as a new item
@@ -218,15 +223,15 @@ export function deleteProduct(productId) {
   }
 }
 
-export function addCartItem(id, quantity) {
+export function addCartItem(product, quantity) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3000/product/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
-        },
-      })
-      dispatch(setCartItems({ product: response.data, quantity })) // dispatch setCartItems action with fetched product and quantity
+      dispatch(setCartItems({
+        id_product: product.id_product,
+        name: product.name,
+        quantity: quantity,
+        price : product.price,
+      })) // dispatch setCartItems action with fetched product and quantity
     } catch (error) {
       console.error(error)
       alert('An error occurred. Please try again later.')

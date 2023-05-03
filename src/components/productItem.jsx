@@ -26,8 +26,8 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
     }
   }
 
-  const handleAddItem = async () => {
-    dispatch(addCartItem(product.id_product, quantity))
+  const handleAddItem = async (product) => {
+    dispatch(addCartItem(product, quantity))
   }
 
   const handleQuantityChange = (event) => {
@@ -69,7 +69,7 @@ const ProductItem = ({ product, showAddItemButton = true }) => {
           <button
             className="py-1.5 px-3 bg-orange-400 rounded-sm font-semibold uppercase"
             onClick={() => {
-              handleAddItem()
+              handleAddItem(product)
             }}
           >
             Add Item
