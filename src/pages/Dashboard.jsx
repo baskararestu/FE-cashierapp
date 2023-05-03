@@ -15,7 +15,7 @@ function Dashboard() {
     dispatch(fetchProducts(1))
   }, [])
   return (
-    <div>
+    <div className="bg-slate-100">
       <div className="flex ">
         <div className="flex-1 w-1/4 p-4 ">
           <SearchBar />
@@ -58,7 +58,7 @@ function Dashboard() {
             )}
           </div>
         </div>
-        <div className="bg-yellow-500 w-1/3">
+        <div className="py-5 w-1/3 h-full">
           <Checkout />
         </div>
       </div>

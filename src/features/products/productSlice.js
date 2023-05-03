@@ -13,6 +13,7 @@ export const productSlice = createSlice({
     categories: [],
     selectedProduct: null,
     cartItems: [],
+    totalPrice: 0,
   },
   reducers: {
     setProducts: (state, action) => {
@@ -31,19 +32,23 @@ export const productSlice = createSlice({
       state.selectedProduct = action.payload
     },
     setCartItems: (state, action) => {
-      // state.cartItems = [...state.cartItems, action.payload]
-
       // console.log(action.payload)
       // console.log(state.cartItems)
       const newItem = action.payload
       const existingItemIndex = state.cartItems.findIndex(
         (item) => item.id_product === newItem.id_product
       )
+      console.log(existingItemIndex)
       if (existingItemIndex !== -1) {
-        if(newItem.quantity < 0 &&  state.cartItems[existingItemIndex].quantity === 1){
+        if (
+          newItem.quantity < 0 &&
+          state.cartItems[existingItemIndex].quantity === 1
+        ) {
           // remove item from cart
-          state.cartItems = state.cartItems.filter((item) => item.id_product !== newItem.id_product)
-          return;
+          state.cartItems = state.cartItems.filter(
+            (item) => item.id_product !== newItem.id_product
+          )
+          return
         }
         // If the product already exists in the cart, update its quantity 1 | -1
         state.cartItems[existingItemIndex].quantity += newItem.quantity
@@ -51,20 +56,35 @@ export const productSlice = createSlice({
         // If the product doesn't exist in the cart, add it as a new item
         state.cartItems.push(newItem)
       }
+      // Update total price
+      state.totalPrice = state.cartItems.reduce((total, item) => {
+        return total + item.price * item.quantity
+      }, 0)
     },
 
-    removeFromCart: (state, action) => {
-      const { id, quantity } = action.payload
-      const existingItem = state.cartItems.find((item) => item.id === id)
-      if (existingItem) {
-        existingItem.quantity -= quantity // decrease quantity of existing item
-        if (existingItem.quantity <= 0) {
-          state.cartItems = state.cartItems.filter((item) => item.id !== id) // remove item from cartItems if quantity reaches 0 or below
-        }
+    removeCartItem: (state, action) => {
+      const id_product = action.payload
+
+      // Find the index of the item to remove
+      const indexToRemove = state.cartItems.findIndex(
+        (item) => item.id_product === id_product
+      )
+      console.log(indexToRemove)
+
+      if (indexToRemove !== -1) {
+        // Remove the item from the cart
+        state.cartItems.splice(indexToRemove, 1)
       }
+
+      // Update total price
+      state.totalPrice = state.cartItems.reduce((total, item) => {
+        return total + item.price * item.quantity
+      }, 0)
     },
+
     clearCart: (state) => {
       state.cartItems = []
+      state.totalPrice = 0
     },
   },
 })
@@ -76,8 +96,7 @@ export const {
   setCategories,
   setProduct,
   setCartItems,
-  addToCart,
-  removeFromCart,
+  removeCartItem,
   clearCart,
 } = productSlice.actions
 
@@ -226,12 +245,14 @@ export function deleteProduct(productId) {
 export function addCartItem(product, quantity) {
   return async (dispatch) => {
     try {
-      dispatch(setCartItems({
-        id_product: product.id_product,
-        name: product.name,
-        quantity: quantity,
-        price : product.price,
-      })) // dispatch setCartItems action with fetched product and quantity
+      dispatch(
+        setCartItems({
+          id_product: product.id_product,
+          name: product.name,
+          quantity: quantity,
+          price: product.price,
+        })
+      ) // dispatch setCartItems action with fetched product and quantity
     } catch (error) {
       console.error(error)
       alert('An error occurred. Please try again later.')
