@@ -181,7 +181,7 @@ function EditProduct() {
                 htmlFor="brand"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Price
+                Stock
               </label>
               <input
                 type="number"
