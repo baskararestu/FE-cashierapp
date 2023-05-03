@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export const productSlice = createSlice({
-  name: "product",
+  name: 'product',
   initialState: {
     products: [],
     pagination: {
@@ -11,25 +12,57 @@ export const productSlice = createSlice({
     },
     categories: [],
     selectedProduct: null,
+    cartItems: [],
   },
   reducers: {
     setProducts: (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload
     },
     setPagination: (state, action) => {
-      state.pagination = action.payload;
+      state.pagination = action.payload
     },
     addProduct: (state, action) => {
-      state.products.push(action.payload);
+      state.products.push(action.payload)
     },
     setCategories: (state, action) => {
-      state.categories = action.payload;
+      state.categories = action.payload
     },
     setProduct: (state, action) => {
-      state.selectedProduct = action.payload;
+      state.selectedProduct = action.payload
+    },
+    setCartItems: (state, action) => {
+      // state.cartItems = [...state.cartItems, action.payload]
+
+      // console.log(action.payload)
+      // console.log(state.cartItems)
+      const newItem = action.payload
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.product.id_product === newItem.product.id_product
+      )
+      if (existingItemIndex !== -1) {
+        // If the product already exists in the cart, update its quantity
+        state.cartItems[existingItemIndex].quantity += newItem.quantity
+      } else {
+        // If the product doesn't exist in the cart, add it as a new item
+        state.cartItems.push(newItem)
+      }
+    },
+
+    removeFromCart: (state, action) => {
+      const { id, quantity } = action.payload
+      const existingItem = state.cartItems.find((item) => item.id === id)
+      if (existingItem) {
+        existingItem.quantity -= quantity // decrease quantity of existing item
+        if (existingItem.quantity <= 0) {
+          state.cartItems = state.cartItems.filter((item) => item.id !== id) // remove item from cartItems if quantity reaches 0 or below
+        }
+      }
+    },
+    clearCart: (state) => {
+      state.cartItems = []
     },
   },
-});
+})
 
 export const {
   setProducts,
@@ -37,9 +70,13 @@ export const {
   addProduct,
   setCategories,
   setProduct,
-} = productSlice.actions;
+  setCartItems,
+  addToCart,
+  removeFromCart,
+  clearCart,
+} = productSlice.actions
 
-export default productSlice.reducer;
+export default productSlice.reducer
 
 export function fetchProducts(page) {
   return async (dispatch) => {
@@ -49,40 +86,40 @@ export function fetchProducts(page) {
         `http://localhost:3000/product?page=${page}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
           },
         }
-      );
-      dispatch(setProducts(response.data.data));
-      dispatch(setPagination(response.data.pages));
+      )
+      dispatch(setProducts(response.data.data))
+      dispatch(setPagination(response.data.pages))
     } catch (error) {
-      console.error(error);
-      alert("An error occurred. Please try again later.");
+      console.error(error)
+      alert('An error occurred. Please try again later.')
     }
-  };
+  }
 }
 
 export function addProductAsync(product) {
   return async (dispatch) => {
-    console.log(product);
+    console.log(product)
     try {
       const response = await axios.post(
-        "http://localhost:3000/product/add-product",
+        'http://localhost:3000/product/add-product',
         product,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
           },
         }
-      );
-      dispatch(addProduct(response.data));
-      console.log(response.data);
-      return response.data;
+      )
+      dispatch(addProduct(response.data))
+      console.log(response.data)
+      return response.data
     } catch (error) {
-      console.error(error);
-      alert("An error occurred. Please try again later.");
+      console.error(error)
+      alert('An error occurred. Please try again later.')
     }
-  };
+  }
 }
 
 export function editProductAsync(id) {
@@ -93,16 +130,16 @@ export function editProductAsync(id) {
         `http://localhost:3000/product/edit/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
           },
         }
-      );
-      dispatch(addProduct(response.data));
+      )
+      dispatch(addProduct(response.data))
     } catch (error) {
-      console.error(error);
-      alert("An error occurred. Please try again later.");
+      console.error(error)
+      alert('An error occurred. Please try again later.')
     }
-  };
+  }
 }
 
 export function getCategories() {
@@ -112,27 +149,27 @@ export function getCategories() {
       `http://localhost:3000/category/get-category`,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
         },
       }
-    );
-    dispatch(setCategories(categoryResponse.data.data));
-  };
+    )
+    dispatch(setCategories(categoryResponse.data.data))
+  }
 }
 export function fetchProductById(id) {
   return async (dispatch) => {
     try {
       const response = await axios.get(`http://localhost:3000/product/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
         },
-      });
-      dispatch(setProduct(response.data)); // dispatch setProduct action with fetched product
+      })
+      dispatch(setProduct(response.data)) // dispatch setProduct action with fetched product
     } catch (error) {
-      console.error(error);
-      alert("An error occurred. Please try again later.");
+      console.error(error)
+      alert('An error occurred. Please try again later.')
     }
-  };
+  }
 }
 
 export function editProductById(id, productData) {
@@ -143,17 +180,18 @@ export function editProductById(id, productData) {
         productData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
           },
         }
-      );
-      dispatch(setProducts(response.data)); // dispatch setProduct action with fetched product
-      dispatch(fetchProducts()); // refresh our products list
+      )
+      dispatch(setProducts(response.data)) // dispatch setProduct action with fetched product
+      dispatch(fetchProducts()) // refresh our products list
     } catch (error) {
-      console.error(error);
-      alert("An error occurred. Please try again later.");
+      console.error(error)
+      // alert("An error occurred. Please try again later.");
+      toast.error('Failed to update product data')
     }
-  };
+  }
 }
 export function deleteProduct(productId) {
   return async (dispatch, getState) => {
@@ -162,27 +200,36 @@ export function deleteProduct(productId) {
         `http://localhost:3000/product/delete/${productId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
           },
         }
-      );
+      )
       // setTimeout(() => {
       const updatedProducts = getState().product.products.filter(
         (product) => productId !== product.id_product
-      );
-      dispatch(setProducts(updatedProducts));
+      )
+      dispatch(setProducts(updatedProducts))
       // }, 1000);
-      console.log(response.data);
+      console.log(response.data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       // alert("An error occurred. Please try again later.(deleted)");
     }
-  };
+  }
 }
 
-// export const setSelectedProduct = (product) => {
-//   return {
-//     type: "product/setSelectedProduct",
-//     payload: product,
-//   };
-// };
+export function addCartItem(id, quantity) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
+        },
+      })
+      dispatch(setCartItems({ product: response.data, quantity })) // dispatch setCartItems action with fetched product and quantity
+    } catch (error) {
+      console.error(error)
+      alert('An error occurred. Please try again later.')
+    }
+  }
+}
