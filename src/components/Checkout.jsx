@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   addCartItem,
+  checkoutItems,
   clearCart,
   removeCartItem,
 } from '../features/products/productSlice'
@@ -27,6 +28,11 @@ function Checkout() {
 
   const handleClearCart = (product) => {
     dispatch(clearCart(product))
+  }
+
+  const handleCheckout = () => {
+    console.log(totalPrice) // add this line to log the totalPrice value
+    dispatch(checkoutItems(cart, totalPrice))
   }
 
   useEffect(() => {
@@ -109,7 +115,9 @@ function Checkout() {
           <div className="flex justify-between mt-4">
             <button
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              onClick={() => {}}
+              onClick={() => {
+                handleCheckout()
+              }}
             >
               Checkout
             </button>
