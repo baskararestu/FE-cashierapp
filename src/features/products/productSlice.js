@@ -259,3 +259,27 @@ export function addCartItem(product, quantity) {
     }
   }
 }
+
+export function checkoutItems(cart, totalPrice) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/transaction/add-transaction',
+        {
+          items: cart,
+          total_amount: totalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user_token')}`,
+          },
+        }
+      )
+      toast.success('Checkout Succed')
+      console.log(response.data)
+      dispatch(clearCart()) // clear the cart if the request is successful
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
